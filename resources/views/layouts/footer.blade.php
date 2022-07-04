@@ -28,6 +28,10 @@
     </div>
 </footer>
 
+<!-- AlpineJS -->
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<!-- Main Quill library -->
+<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <script>
     function getCarouselData() {
         return {
@@ -51,4 +55,17 @@
             },
         }
     }
+
+    var options = {
+        debug: 'info',
+        modules: {
+            toolbar: '#toolbar'
+        },
+        placeholder: 'Compose an epic...',
+        readOnly: true,
+        theme: 'snow'
+    };
+    var quill = new Quill('#quill-editor', {
+        theme: 'snow'
+    });
 </script>

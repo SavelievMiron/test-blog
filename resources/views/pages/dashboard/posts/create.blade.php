@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="h-screen">
-        <div class="container mx-auto px-6 py-12 h-full flex flex-column items-center justify-center">
+        <div class="container mx-auto px-6 py-12 h-full flex flex-col items-center justify-center">
             <h1 class="text-5xl text-bold text-center mb-10">
                 Create Post
             </h1>
@@ -34,11 +34,11 @@
                     <!-- Content input -->
                     <div class="mb-6">
                         <textarea
+                            id="quill-editor"
                             name="content"
                             class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             placeholder="Content"
-                            required
-                        />
+                            required></textarea>
                     </div>
 
                     <!-- Categories select -->

@@ -22,7 +22,7 @@ class DashboardComposer
      */
     public function compose(View $view)
     {
-        $posts = Post::where('user_id', auth()->user()->id)->take(5);
+        $posts = Post::where('user_id', 1)->paginate(1);
 
         $view->with('posts', $posts);
     }

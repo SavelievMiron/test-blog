@@ -65,10 +65,11 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard.posts.create');
     Route::post('/dashboard/posts/create', [PostController::class, 'create']);
 
-    Route::get('/dashboard/posts/{id}/edit/', function () {
-        return view('pages.dashboard.posts.create');
+    Route::get('/dashboard/posts/{id}/edit/', function ($id) {
+        $post = Post::find($id);
+        return view('pages.dashboard.posts.edit', ['post' => $post]);
     })->name('dashboard.posts.edit')->where('id', '[0-9]+');
-    Route::post('/dashboard/posts/create', [PostController::class, 'edit']);
+    Route::post('/dashboard/posts/{id}/edit/', [PostController::class, 'edit']);
 });
 
 /** --------------------------------------------- /
