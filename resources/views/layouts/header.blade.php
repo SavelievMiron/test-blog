@@ -9,11 +9,15 @@
         </nav>
 
         <div class="flex items-center text-lg no-underline text-white pr-6">
-            <a class="px-3" href="/login" title="Login">Login</a>
-            <a class="px-3" href="/register" title="Register">Register</a>
+            @if(auth()->check())
+                <a class="px-3" href="{{ route('dashboard') }}" title="Dashboard">Dashboard</a>
+                <a class="px-3" href="{{ route('logout') }}" title="Dashboard">Log Out</a>
+            @else
+                <a class="px-3" href="{{ route('login') }}" title="Login">Login</a>
+                <a class="px-3" href="{{ route('register') }}" title="Register">Register</a>
+            @endif
         </div>
     </div>
-
 </nav>
 
 <!-- Text Header -->
@@ -29,6 +33,10 @@
 </header>
 
 <!-- Topic Nav -->
+@php
+    use App\Models\Category;
+    $categories = Category::all(['name', 'slug'])->take(8);
+@endphp
 <nav class="w-full py-4 border-t border-b bg-gray-100" x-data="{ open: false }">
     <div class="block sm:hidden">
         <a
@@ -41,12 +49,9 @@
     </div>
     <div :class="open ? 'block': 'hidden'" class="w-full flex-grow sm:flex sm:items-center sm:w-auto">
         <div class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2">
-            <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Technology</a>
-            <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Automotive</a>
-            <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Finance</a>
-            <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Politics</a>
-            <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Culture</a>
-            <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Sports</a>
+            @foreach($categories as $category)
+                <a href="{{ url('/') }}" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">{{ $category->name }}</a>
+            @endforeach
         </div>
     </div>
 </nav>

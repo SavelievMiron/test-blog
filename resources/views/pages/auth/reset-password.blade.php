@@ -1,51 +1,34 @@
-@extends('layouts.dashboard')
+@extends('layouts.auth')
 
 @section('content')
     <section class="h-screen">
-        <div class="container mx-auto px-6 py-12 h-full flex flex-column items-center justify-center">
+        <div class="container mx-auto px-6 py-12 h-full flex flex-col items-center justify-center">
             <h1 class="text-5xl text-bold text-center mb-10">
-                Create Post
+                Reset Password
             </h1>
             <div class="md:w-8/12 lg:w-5/12 mx-auto">
-                <form action="{{ route('dashboard.posts.create') }}" method="POST">
+                <form action="{{ url('reset-password') }}" method="POST">
                     @csrf
-                    <!-- Title input -->
+                    <!-- Password input -->
                     <div class="mb-6">
                         <input
-                            type="text"
-                            name="title"
+                            type="password"
+                            name="password"
                             class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            placeholder="Title"
+                            placeholder="New Password"
                             required
                         />
                     </div>
 
-                    <!-- Slug input -->
+                    <!-- Repeat Password input -->
                     <div class="mb-6">
                         <input
-                            type="text"
-                            name="slug"
+                            type="password"
+                            name="password_confirmation"
                             class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            placeholder="Slug"
+                            placeholder="Repeat New Password"
                             required
                         />
-                    </div>
-
-                    <!-- Content input -->
-                    <div class="mb-6">
-                        <textarea
-                            name="content"
-                            class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            placeholder="Content"
-                            required
-                        />
-                    </div>
-
-                    <!-- Categories select -->
-                    <div class="mb-6">
-                        <select name="categories[]" id="categories">
-                            <option value="">None</option>
-                        </select>
                     </div>
 
                     <!-- Submit button -->
@@ -55,7 +38,7 @@
                         data-mdb-ripple="true"
                         data-mdb-ripple-color="light"
                     >
-                        Create
+                        Reset
                     </button>
                 </form>
             </div>
