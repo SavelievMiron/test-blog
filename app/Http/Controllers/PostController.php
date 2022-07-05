@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -24,7 +26,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return response(view('pages.dashboard.posts.create'));
     }
 
     /**
@@ -33,9 +35,22 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        //
+        $data = $request->all(['title', 'slug', 'content', 'thumbnail']);
+
+        $post = Post::create($data);
+
+        // assign post to user
+        $post->author()->associate(auth()->user());
+        $post->save();
+
+        // set categories
+        if (!empty($categories)) {
+            $post->categories()->sync($data['categories']);
+        }
+
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -44,9 +59,13 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(string $slug)
     {
-        //
+        $post = Post::where('slug', $slug)->first();
+
+        abort_if(is_null($post), 404);
+
+        return response(view('blog.post', ['post' => $post]));
     }
 
     /**
@@ -57,7 +76,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return response(view('pages.dashboard.posts.edit', ['post' => $post]));
     }
 
     /**
@@ -67,9 +86,11 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $post->update($request->all(['title', 'slug', 'content']));
+
+        return back(); //redirect()->route('blog.post', ['slug' => $post->slug]);
     }
 
     /**
@@ -80,6 +101,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        dd($post->id . ' has been deleted');
     }
 }

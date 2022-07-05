@@ -15,10 +15,18 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('title');
             $table->string('slug');
             $table->text('content');
+
+            $table->unsignedInteger('thumbnail_id')->nullable();
+            $table->foreign('thumbnail_id')
+                  ->references('id')
+                  ->on('attachments')
+                  ->onUpdate('cascade')
+                  ->onDelete('set null');;
+
             $table->timestamps();
         });
     }

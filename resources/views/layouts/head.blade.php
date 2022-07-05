@@ -12,9 +12,6 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Quill -->
-    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-
     <style>
         @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
 

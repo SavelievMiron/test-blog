@@ -31,7 +31,7 @@
 <!-- AlpineJS -->
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <!-- Main Quill library -->
-<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     function getCarouselData() {
         return {
@@ -56,16 +56,15 @@
         }
     }
 
-    var options = {
-        debug: 'info',
-        modules: {
-            toolbar: '#toolbar'
-        },
-        placeholder: 'Compose an epic...',
-        readOnly: true,
-        theme: 'snow'
-    };
-    var quill = new Quill('#quill-editor', {
-        theme: 'snow'
-    });
+    let editors = document.querySelectorAll('#editor');
+    let editorInstances = [];
+    if (editors.length !== 0) {
+        editors.forEach(function (editor) {
+            tinymce.init({
+                selector: 'textarea#editor', // Replace this CSS selector to match the placeholder element for TinyMCE
+                plugins: 'powerpaste advcode table lists checklist',
+                toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table'
+            });
+        })
+    }
 </script>

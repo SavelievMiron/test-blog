@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @php
-        $categories = array_map(function($cat) {
-            return $cat['name'];
-        }, $post->categories->toArray());
-    @endphp
     <div class="container mx-auto flex flex-wrap py-6">
 
         <!-- Post Section -->
@@ -20,7 +15,7 @@
                     <p class="text-blue-700 text-sm font-bold uppercase pb-4">{{ implode(', ', $categories) }}</p>
                     <a href="{{ route('blog.post', ['slug' => $post->slug]) }}" class="text-3xl font-bold hover:text-gray-700 pb-4">{{ $post->title }}</a>
                     <p href="#" class="text-sm pb-8">
-                        By <a href="#" class="font-semibold hover:text-gray-800">{{ optional($post->author)->name }}</a>, Published on {{ date('m d Y', strtotime($post->updated_at)) }}
+                        By <a href="#" class="font-semibold hover:text-gray-800">{{ optional($post->author)->name }}</a>, Published on {{ date('F jS, Y', strtotime($post->updated_at)) }}
                     </p>
                     {!! $post->content !!}
                 </div>

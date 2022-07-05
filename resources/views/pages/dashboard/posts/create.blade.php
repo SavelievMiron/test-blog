@@ -7,7 +7,7 @@
                 Create Post
             </h1>
             <div class="md:w-8/12 lg:w-5/12 mx-auto">
-                <form action="{{ route('dashboard.posts.create') }}" method="POST">
+                <form action="{{ route('dashboard.posts.create') }}" method="POST" enctype='multipart/form-data'>
                     @csrf
                     <!-- Title input -->
                     <div class="mb-6">
@@ -18,6 +18,10 @@
                             placeholder="Title"
                             required
                         />
+
+                        @if ($errors->has('title'))
+                            <span class="text-red-600 text-left">{{ $errors->first('title') }}</span>
+                        @endif
                     </div>
 
                     <!-- Slug input -->
@@ -29,31 +33,47 @@
                             placeholder="Slug"
                             required
                         />
+
+                        @if ($errors->has('slug'))
+                            <span class="text-red-600 text-left">{{ $errors->first('slug') }}</span>
+                        @endif
                     </div>
 
                     <!-- Content input -->
                     <div class="mb-6">
                         <textarea
-                            id="quill-editor"
+                            id="editor"
                             name="content"
                             class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            placeholder="Content"
-                            required></textarea>
+                            required>
+                        </textarea>
+
+                        @if ($errors->has('content'))
+                            <span class="text-red-600 text-left">{{ $errors->first('content') }}</span>
+                        @endif
                     </div>
 
                     <!-- Categories select -->
                     <div class="mb-6">
-                        <select name="categories[]" id="categories" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <select name="categories[]" id="categories" multiple class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="">None</option>
                             @foreach(\App\Models\Category::all(['id', 'name']) as $category)
                                 <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
                             @endforeach
                         </select>
+
+                        @if ($errors->has('categories'))
+                            <span class="text-red-600 text-left">{{ $errors->first('categories') }}</span>
+                        @endif
                     </div>
 
                     <div class="mb-6">
-                        <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG, JPG or GIF (MAX. 800x400px).</p>
+                        <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="thumbnail" id="thumbnail" name="thumbnail" type="file">
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="thumbnail">PNG, JPG or GIF (MAX. 800x400px).</p>
+
+                        @if ($errors->has('thumbnail'))
+                            <span class="text-red-600 text-left">{{ $errors->first('thumbnail') }}</span>
+                        @endif
                     </div>
 
                     <!-- Submit button -->

@@ -60,26 +60,17 @@ Route::middleware('auth')->group(function () {
         return view('pages.dashboard.index');
     })->name('dashboard');
 
-    Route::get('/dashboard/posts/create', function () {
-        return view('pages.dashboard.posts.create');
-    })->name('dashboard.posts.create');
-    Route::post('/dashboard/posts/create', [PostController::class, 'create']);
+    Route::get('/dashboard/posts/create', [PostController::class, 'create'])->name('dashboard.posts.create');
+    Route::post('/dashboard/posts/create', [PostController::class, 'store']);
 
-    Route::get('/dashboard/posts/{id}/edit/', function ($id) {
-        $post = Post::find($id);
-        return view('pages.dashboard.posts.edit', ['post' => $post]);
-    })->name('dashboard.posts.edit')->where('id', '[0-9]+');
-    Route::post('/dashboard/posts/{id}/edit/', [PostController::class, 'edit']);
+    Route::get('/dashboard/posts/{post}/edit/', [PostController::class, 'edit'])->name('dashboard.posts.edit')
+         ->where('post', '[0-9]+');
+    Route::post('/dashboard/posts/{post}/edit/', [PostController::class, 'update'])
+        ->where('post', '[0-9]+');
 });
 
 /** --------------------------------------------- /
  *  -------------------- Blog ------------------- /
  * --------------------------------------------- */
 
-Route::get('/blog/{slug}', function (string $slug) {
-    $post = Post::where('slug', $slug)->first();
-
-    abort_if(is_null($post), 404);
-
-    return view('blog.post', ['post' => $post]);
-})->name('blog.post')->where('slug', '[a-z]+');
+Route::get('/blog/{slug}', [PostController::class, 'show'])->name('blog.post')->where('slug', '[a-z]+');

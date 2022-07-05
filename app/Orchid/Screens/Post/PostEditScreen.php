@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Orchid\Attachment\Models\Attachment;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Cropper;
 use Orchid\Screen\Fields\Input;
@@ -28,7 +29,9 @@ class PostEditScreen extends Screen
         $this->exist = $post->exists;
 
         return [
-            'post' => $post,
+            'post'       => $post,
+            'author'     => $post->author,
+            'thumbnail'  => optional($post->thumbnail)->id,
             'categories' => $post->categories
         ];
     }
@@ -96,6 +99,7 @@ class PostEditScreen extends Screen
                            ->width(500)
                            ->height(300)
                            ->title('Thumbnail')
+                           ->targetId()
                            ->horizontal(),
                     Relation::make('categories')
                             ->fromModel(Category::class, 'name', 'id')
@@ -125,6 +129,10 @@ class PostEditScreen extends Screen
 
         if ($request->has('categories')) {
             $post->categories()->sync($request->input('categories'));
+        }
+
+        if ($request->has('thumbnail')) {
+            $post->thumbnail = $request->input('thumbnail');
         }
 
         $post->save();

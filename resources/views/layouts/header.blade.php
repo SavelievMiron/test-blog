@@ -1,7 +1,6 @@
 <!-- Top Bar Nav -->
 <nav class="w-full py-4 bg-blue-800 shadow">
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between">
-
         <nav>
             <ul class="flex items-center justify-between font-bold text-sm text-white uppercase no-underline">
                 <li><a class="hover:text-gray-200 hover:underline px-4" href="/">Home</a></li>
@@ -23,8 +22,8 @@
 <!-- Text Header -->
 <header class="w-full container mx-auto">
     <div class="flex flex-col items-center py-12">
-        <a class="font-bold text-gray-800 uppercase hover:text-gray-700 text-5xl" href="#">
-            Minimal Blog
+        <a class="font-bold text-gray-800 uppercase hover:text-gray-700 text-5xl" href="/">
+            {{ config('app.name') }}
         </a>
         <p class="text-lg text-gray-600">
             Lorem Ipsum Dolor Sit Amet

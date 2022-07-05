@@ -5,7 +5,7 @@ namespace App\View\Composers;
 use App\Models\Post;
 use Illuminate\View\View;
 
-class DashboardComposer
+class HomepageComposer
 {
     /**
      * Bind data to the view.
@@ -15,7 +15,7 @@ class DashboardComposer
      */
     public function compose(View $view)
     {
-        $posts = Post::where('user_id', 1)->paginate(1);
+        $posts = Post::latest()->paginate(1);
 
         $view->with('posts', $posts);
     }
