@@ -15,7 +15,7 @@ class DashboardComposer
      */
     public function compose(View $view)
     {
-        $posts = Post::where('user_id', 1)->paginate(1);
+        $posts = Post::where('user_id', auth()->user()->getAuthIdentifier())->paginate(2);
 
         $view->with('posts', $posts);
     }

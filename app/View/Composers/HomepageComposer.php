@@ -15,7 +15,7 @@ class HomepageComposer
      */
     public function compose(View $view)
     {
-        $posts = Post::latest()->paginate(1);
+        $posts = Post::latest()->paginate(2);
 
         $view->with('posts', $posts);
     }

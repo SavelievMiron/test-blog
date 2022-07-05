@@ -56,15 +56,24 @@
         }
     }
 
-    let editors = document.querySelectorAll('#editor');
-    let editorInstances = [];
-    if (editors.length !== 0) {
-        editors.forEach(function (editor) {
-            tinymce.init({
-                selector: 'textarea#editor', // Replace this CSS selector to match the placeholder element for TinyMCE
-                plugins: 'powerpaste advcode table lists checklist',
-                toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table'
-            });
+    @if(Route::is('dashboard.posts.create') || Route::is('dashboard.posts.edit'))
+        let editors = document.querySelectorAll('#editor');
+        let editorInstances = [];
+        if (editors.length !== 0) {
+            editors.forEach(function (editor) {
+                tinymce.init({
+                    selector: 'textarea#editor', // Replace this CSS selector to match the placeholder element for TinyMCE
+                    plugins: 'powerpaste advcode table lists checklist',
+                    toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table'
+                });
+            })
+        }
+
+        $(document).ready(function () {
+            $('select#categories').select2({
+                placeholder: "Choose categories",
+                allowClear: true
+            })
         })
-    }
+    @endif
 </script>

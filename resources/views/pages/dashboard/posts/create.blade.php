@@ -69,7 +69,7 @@
 
                     <div class="mb-6">
                         <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="thumbnail" id="thumbnail" name="thumbnail" type="file">
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="thumbnail">PNG, JPG or GIF (MAX. 800x400px).</p>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="thumbnail">PNG, JPG or GIF (MAX. 900x600px).</p>
 
                         @if ($errors->has('thumbnail'))
                             <span class="text-red-600 text-left">{{ $errors->first('thumbnail') }}</span>

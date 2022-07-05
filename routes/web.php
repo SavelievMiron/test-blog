@@ -73,4 +73,4 @@ Route::middleware('auth')->group(function () {
  *  -------------------- Blog ------------------- /
  * --------------------------------------------- */
 
-Route::get('/blog/{slug}', [PostController::class, 'show'])->name('blog.post')->where('slug', '[a-z]+');
+Route::get('/blog/{slug}', [PostController::class, 'show'])->name('blog.post');

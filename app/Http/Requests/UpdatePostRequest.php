@@ -26,7 +26,7 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         $post = $this->route('post');
-
+//        dd($this);
         return [
             'title'        => [
                 'required',
@@ -39,8 +39,8 @@ class UpdatePostRequest extends FormRequest
                 Rule::unique('posts', 'slug')->ignore($post->id)
             ],
             'content'      => 'required|string',
-            'categories'   => 'required|array',
-            'categories.*' => "required|string|distinct|exists:categories,id",
+            'categories'   => 'array',
+            'categories.*' => "string|nullable|distinct|exists:categories,id",
             'thumbnail'    => 'file|mimes:png,jpg,gif|max:2097152'
         ];
     }

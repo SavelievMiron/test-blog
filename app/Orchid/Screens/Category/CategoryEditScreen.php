@@ -102,6 +102,8 @@ class CategoryEditScreen extends Screen
 
         $category->fill($data);
 
+        $category->save();
+
         if ($request->has('posts')) {
             $category->posts()->sync($request->input('posts'));
         }
