@@ -67,6 +67,9 @@ Route::middleware('auth')->group(function () {
          ->where('post', '[0-9]+');
     Route::post('/dashboard/posts/{post}/edit/', [PostController::class, 'update'])
         ->where('post', '[0-9]+');
+
+    Route::post('/dashboard/posts/delete/', [PostController::class, 'destroy'])
+         ->name('dashboard.posts.delete');
 });
 
 /** --------------------------------------------- /
