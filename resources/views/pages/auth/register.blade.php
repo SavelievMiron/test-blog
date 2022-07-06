@@ -73,6 +73,14 @@
                         </div>
                     @endif
 
+                    <div class="flex justify-end items-center mb-6">
+                        <a
+                            href="{{ route('register') }}"
+                            class="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out"
+                        >Do you already have an account? Sign In</a
+                        >
+                    </div>
+
                     <!-- Submit button -->
                     <button
                         type="submit"

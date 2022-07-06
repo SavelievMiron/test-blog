@@ -37,12 +37,6 @@ Route::middleware('guest')->group(function () {
         return view('pages.auth.register');
     })->name('register');
     Route::post('/register', [UserController::class, 'register']);
-
-    /* Reset Password */
-    Route::get('/forgot-password', function () {
-        return view('pages.auth.reset-password');
-    })->name('forgot-password');
-    Route::post('/forgot-password', [UserController::class, 'resetPassword']);
 });
 
 /* Logout */
