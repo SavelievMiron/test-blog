@@ -65,9 +65,9 @@
                             >
                         </div>
                         <a
-                            href=""
+                            href="{{ route('register') }}"
                             class="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out"
-                        >Forgot password?</a
+                        >Don't have an account yet? Sign Up</a
                         >
                     </div>
 
