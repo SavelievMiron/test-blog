@@ -1,22 +1,4 @@
 <footer class="w-full border-t bg-white pb-12">
-{{--    <div--}}
-{{--        class="relative w-full flex items-center invisible md:visible md:pb-12"--}}
-{{--        x-data="getCarouselData()"--}}
-{{--    >--}}
-{{--        <button--}}
-{{--            class="absolute bg-blue-800 hover:bg-blue-700 text-white text-2xl font-bold hover:shadow rounded-full w-16 h-16 ml-12"--}}
-{{--            x-on:click="decrement()">--}}
-{{--            &#8592;--}}
-{{--        </button>--}}
-{{--        <template x-for="image in images.slice(currentIndex, currentIndex + 6)" :key="images.indexOf(image)">--}}
-{{--            <img class="w-1/6 hover:opacity-75" :src="image">--}}
-{{--        </template>--}}
-{{--        <button--}}
-{{--            class="absolute right-0 bg-blue-800 hover:bg-blue-700 text-white text-2xl font-bold hover:shadow rounded-full w-16 h-16 mr-12"--}}
-{{--            x-on:click="increment()">--}}
-{{--            &#8594;--}}
-{{--        </button>--}}
-{{--    </div>--}}
     <div class="w-full container mx-auto flex flex-col items-center">
         <div class="flex flex-col md:flex-row text-center md:text-left md:justify-between py-6">
             <a href="#" class="uppercase px-3">About Us</a>
@@ -27,6 +9,10 @@
         <div class="uppercase pb-6">&copy; myblog.com</div>
     </div>
 </footer>
+
+@if(Route::is('dashboard'))
+    @include('modals.posts.delete_post')
+@endif
 
 <!-- AlpineJS -->
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -55,6 +41,48 @@
             },
         }
     }
+
+    @if(Route::is('dashboard'))
+        jQuery(function ($) {
+            $(document).ready(function () {
+                const deletePostModal = $('#delete-post-modal')
+
+                $('.delete-post-btn').on('click', function () {
+                    deletePostModal.removeClass('hidden')
+                    let postID = $(this).parents('.actions').data('post-id')
+
+                    deletePostModal.find('input[name="post_id"]').val(postID)
+                })
+
+                $('#delete-post-modal form').on('submit', function (e) {
+                    e.preventDefault()
+                    let $this = $(this)
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ route('dashboard.posts.delete') }}',
+                        data: $this.serialize(),
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.success) {
+                                closeDeletePostModal()
+                                location.reload();
+                            }
+                        }
+                    })
+                })
+
+                $('#delete-post-modal button.close-modal-btn').on('click', function () {
+                    closeDeletePostModal()
+                })
+
+                function closeDeletePostModal() {
+                    deletePostModal.addClass('hidden')
+                    deletePostModal.find('input[name="post_id"]').val('')
+                }
+            })
+        })
+    @endif
 
     @if(Route::is('dashboard.posts.create') || Route::is('dashboard.posts.edit'))
         let editors = document.querySelectorAll('#editor');

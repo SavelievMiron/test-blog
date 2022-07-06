@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeletePostRequest;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use Illuminate\Http\Client\Request;
+use Illuminate\Http\JsonResponse;
 use Orchid\Attachment\File;
 
 class PostController extends Controller
@@ -65,7 +68,7 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Post $post
+     * @param Post $post
      *
      * @return \Illuminate\Http\Response
      */
@@ -81,7 +84,7 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Post $post
+     * @param Post $post
      *
      * @return \Illuminate\Http\Response
      */
@@ -94,7 +97,7 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Post $post
+     * @param Post $post
      *
      * @return \Illuminate\Http\Response
      */
@@ -121,12 +124,21 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Post $post
+     * @param Post $post
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy(Post $post)
+    public function destroy(DeletePostRequest $request)
     {
-        $post->delete();
+        $post_id = $request->validated('post_id');
+
+        Post::destroy($post_id);
+
+        return response()->json([
+            'success' => true,
+            'body' => [
+                'message' => 'The post has been successfully deleted'
+            ]
+        ]);
     }
 }
